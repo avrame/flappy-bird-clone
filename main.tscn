@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdihjy6da3ag6"]
+
+[ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
+[ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
+[ext_resource type="Script" path="res://Background/infinite_scroll.gd" id="3_1pynh"]
+[ext_resource type="Texture2D" uid="uid://mplvmrwcoe3d" path="res://Background/base.png" id="3_53bcx"]
+[ext_resource type="Texture2D" uid="uid://bp61q6froip3e" path="res://message.png" id="4_jt5sv"]
+[ext_resource type="PackedScene" uid="uid://fjuwvwcxm03d" path="res://Player/player.tscn" id="6_k7p6c"]
+[ext_resource type="Script" path="res://Player/player.gd" id="7_8tdv2"]
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_kbjvr")
+
+[node name="Backgrounds" type="Node2D" parent="."]
+position = Vector2(144, 256)
+
+[node name="Background1" type="Sprite2D" parent="Backgrounds"]
+texture_filter = 1
+position = Vector2(145, 0)
+texture = ExtResource("1_8dwdx")
+script = ExtResource("3_1pynh")
+
+[node name="Background2" type="Sprite2D" parent="Backgrounds"]
+texture_filter = 1
+position = Vector2(721, 0)
+texture = ExtResource("1_8dwdx")
+script = ExtResource("3_1pynh")
+
+[node name="Ground1" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(361, 199)
+texture = ExtResource("3_53bcx")
+script = ExtResource("3_1pynh")
+speed = -100
+
+[node name="Ground2" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(25, 199)
+texture = ExtResource("3_53bcx")
+script = ExtResource("3_1pynh")
+speed = -100
+
+[node name="GetReady" type="Sprite2D" parent="."]
+position = Vector2(144, 208)
+texture = ExtResource("4_jt5sv")
+
+[node name="Player" parent="." instance=ExtResource("6_k7p6c")]
+position = Vector2(144, 256)
+script = ExtResource("7_8tdv2")
+
+[connection signal="flap" from="." to="Player" method="_on_root_flap"]

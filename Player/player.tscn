@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://fjuwvwcxm03d"]
+
+[ext_resource type="Texture2D" uid="uid://cr0poig54nikv" path="res://Player/redbird-spritesheet.png" id="1_ihech"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_isrer"]
+radius = 12.53
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("1_ihech")
+vframes = 3
+frame = 1
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 34, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_isrer")
