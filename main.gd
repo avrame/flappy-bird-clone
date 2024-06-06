@@ -13,7 +13,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("Flap"):		
+	if Input.is_action_just_pressed("Flap"):		
 		flap.emit()
 		if not game_started:
 			start_game()

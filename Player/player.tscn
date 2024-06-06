@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://fjuwvwcxm03d"]
+[gd_scene load_steps=5 format=3 uid="uid://fjuwvwcxm03d"]
 
 [ext_resource type="Texture2D" uid="uid://cr0poig54nikv" path="res://Player/redbird-spritesheet.png" id="1_ihech"]
+[ext_resource type="AudioStream" uid="uid://227aai0techd" path="res://Player/wing.ogg" id="2_1cduo"]
+[ext_resource type="AudioStream" uid="uid://vg8k1ppxf4by" path="res://Player/hit.ogg" id="3_aw6mi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_isrer"]
-radius = 12.53
+radius = 13.0384
 
 [node name="Player" type="CharacterBody2D"]
 
@@ -18,3 +20,9 @@ region_rect = Rect2(2.08165e-12, 2.08165e-12, 34, 24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_isrer")
+
+[node name="Flap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1cduo")
+
+[node name="Crash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_aw6mi")
