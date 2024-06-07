@@ -6,6 +6,7 @@ const FLAP_VELOCITY = -300.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_on = false
 var dead = false
+signal died
 
 func _ready():
 	pass
@@ -30,4 +31,5 @@ func _on_root_flap():
 func _on_ground_body_entered(body):
 	velocity.y = 0
 	dead = true
+	died.emit()
 	$Crash.play()
