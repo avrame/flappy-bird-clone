@@ -32,12 +32,14 @@ texture = ExtResource("1_8dwdx")
 script = ExtResource("3_1pynh")
 
 [node name="Ground1" type="Sprite2D" parent="Backgrounds"]
+texture_filter = 1
 position = Vector2(361, 199)
 texture = ExtResource("3_53bcx")
 script = ExtResource("3_1pynh")
 speed = -100
 
 [node name="Ground2" type="Sprite2D" parent="Backgrounds"]
+texture_filter = 1
 position = Vector2(25, 199)
 texture = ExtResource("3_53bcx")
 script = ExtResource("3_1pynh")
@@ -55,6 +57,7 @@ texture = ExtResource("6_qacca")
 script = ExtResource("7_ellrt")
 
 [node name="Player" parent="." instance=ExtResource("6_k7p6c")]
+texture_filter = 1
 position = Vector2(89, 247)
 script = ExtResource("7_8tdv2")
 
