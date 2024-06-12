@@ -1,22 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://fjuwvwcxm03d"]
+[gd_scene load_steps=9 format=3 uid="uid://fjuwvwcxm03d"]
 
 [ext_resource type="Texture2D" uid="uid://cr0poig54nikv" path="res://Player/redbird-spritesheet.png" id="1_ihech"]
 [ext_resource type="AudioStream" uid="uid://227aai0techd" path="res://Player/wing.ogg" id="2_1cduo"]
 [ext_resource type="AudioStream" uid="uid://vg8k1ppxf4by" path="res://Player/hit.ogg" id="3_aw6mi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e30bu"]
+atlas = ExtResource("1_ihech")
+region = Rect2(0, 0, 34, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hn2v"]
+atlas = ExtResource("1_ihech")
+region = Rect2(0, 24, 34, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ef8q"]
+atlas = ExtResource("1_ihech")
+region = Rect2(0, 48, 34, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4j7a5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e30bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hn2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ef8q")
+}],
+"loop": true,
+"name": &"flap",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_isrer"]
 radius = 13.0384
 
 [node name="Player" type="CharacterBody2D"]
 
-[node name="Sprite" type="Sprite2D" parent="."]
-z_index = 1
-texture_filter = 1
-position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_ihech")
-vframes = 3
-frame = 1
-region_rect = Rect2(2.08165e-12, 2.08165e-12, 34, 24)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4j7a5")
+animation = &"flap"
+frame_progress = 0.67743
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_isrer")
