@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdihjy6da3ag6"]
+[gd_scene load_steps=12 format=3 uid="uid://bdihjy6da3ag6"]
 
 [ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
 [ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
@@ -10,35 +10,56 @@
 [ext_resource type="Script" path="res://Player/player.gd" id="7_8tdv2"]
 [ext_resource type="Script" path="res://GameOver.gd" id="7_ellrt"]
 
+[sub_resource type="GDScript" id="GDScript_4juxc"]
+script/source = "extends Timer
+
+var pipe_scene = preload(\"res://Pipes/pipes.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lypj"]
 size = Vector2(287.75, 129.5)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_kbjvr")
 
+[node name="PipeGenerator" type="Timer" parent="."]
+wait_time = 2.0
+script = SubResource("GDScript_4juxc")
+
 [node name="Backgrounds" type="Node2D" parent="."]
 position = Vector2(144, 256)
 
-[node name="Background1" type="Sprite2D" parent="Backgrounds"]
+[node name="Background1" type="Sprite2D" parent="Backgrounds" groups=["backgrounds"]]
 texture_filter = 1
 position = Vector2(145, 0)
 texture = ExtResource("1_8dwdx")
 script = ExtResource("3_1pynh")
 
-[node name="Background2" type="Sprite2D" parent="Backgrounds"]
+[node name="Background2" type="Sprite2D" parent="Backgrounds" groups=["backgrounds"]]
 texture_filter = 1
 position = Vector2(721, 0)
 texture = ExtResource("1_8dwdx")
 script = ExtResource("3_1pynh")
 
-[node name="Ground1" type="Sprite2D" parent="Backgrounds"]
+[node name="Ground1" type="Sprite2D" parent="Backgrounds" groups=["backgrounds"]]
+z_index = 5
 texture_filter = 1
 position = Vector2(361, 199)
 texture = ExtResource("3_53bcx")
 script = ExtResource("3_1pynh")
 speed = -100
 
-[node name="Ground2" type="Sprite2D" parent="Backgrounds"]
+[node name="Ground2" type="Sprite2D" parent="Backgrounds" groups=["backgrounds"]]
+z_index = 5
 texture_filter = 1
 position = Vector2(25, 199)
 texture = ExtResource("3_53bcx")
@@ -51,12 +72,14 @@ position = Vector2(144, 208)
 texture = ExtResource("4_jt5sv")
 
 [node name="GameOver" type="Sprite2D" parent="."]
+z_index = 15
 texture_filter = 1
 position = Vector2(144, 150)
 texture = ExtResource("6_qacca")
 script = ExtResource("7_ellrt")
 
 [node name="Player" parent="." instance=ExtResource("6_k7p6c")]
+z_index = 10
 texture_filter = 1
 position = Vector2(89, 247)
 script = ExtResource("7_8tdv2")
@@ -68,9 +91,9 @@ position = Vector2(144.125, 449.75)
 shape = SubResource("RectangleShape2D_1lypj")
 
 [connection signal="flap" from="." to="Player" method="_on_root_flap"]
-[connection signal="died" from="Player" to="GameOver" method="_on_player_died"]
-[connection signal="body_entered" from="Ground" to="Backgrounds/Background1" method="_on_ground_body_entered"]
-[connection signal="body_entered" from="Ground" to="Backgrounds/Background2" method="_on_ground_body_entered"]
-[connection signal="body_entered" from="Ground" to="Backgrounds/Ground1" method="_on_ground_body_entered"]
-[connection signal="body_entered" from="Ground" to="Backgrounds/Ground2" method="_on_ground_body_entered"]
+[connection signal="timeout" from="PipeGenerator" to="." method="create_pipe"]
+[connection signal="first_flap_signal" from="Player" to="." method="_start_game"]
+[connection signal="hit_ground" from="Player" to="." method="_game_over"]
+[connection signal="hit_ground" from="Player" to="GameOver" method="_on_player_died"]
+[connection signal="hit_pipe_signal" from="Player" to="." method="_game_over"]
 [connection signal="body_entered" from="Ground" to="Player" method="_on_ground_body_entered"]

@@ -8,12 +8,18 @@ const FLAP_VELOCITY = -300.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_on = false
 var dead = false
-signal died
+var hit_pipe = false
+var first_flap = true
+signal first_flap_signal
+signal hit_pipe_signal
+signal hit_ground
 
 func _ready():
 	_animated_sprite.play()
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("Flap"):
+		_flap()
 	# Add the gravity.
 	if gravity_on and not dead:
 		velocity.y += gravity * delta
@@ -24,17 +30,32 @@ func _physics_process(delta):
 			
 		move_and_slide()
 
-func _on_root_flap():
-	if not dead:
+func _flap():
+	if first_flap:
+		first_flap_signal.emit()
+		first_flap = false
+	if not dead and not hit_pipe:
 		gravity_on = true	
 		velocity.y = FLAP_VELOCITY
 		$Flap.play()
+		
+func _hit_pipe():
+	if not hit_pipe:
+		hit_pipe = true
+		_stop_animation()
+		hit_pipe_signal.emit()
+		$Crash.play()
 
 func _on_ground_body_entered(body):
 	velocity.y = 0
 	position.y = 390
+	_stop_animation()
+	dead = true
+	hit_ground.emit()
+	if not hit_pipe:
+		$Crash.play()
+
+func _stop_animation():
 	_animated_sprite.stop()
 	_animated_sprite.frame = 1
-	dead = true
-	died.emit()
-	$Crash.play()
+	

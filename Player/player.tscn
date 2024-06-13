@@ -41,7 +41,7 @@ radius = 13.0384
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4j7a5")
 animation = &"flap"
-frame_progress = 0.67743
+frame_progress = 0.992782
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_isrer")
