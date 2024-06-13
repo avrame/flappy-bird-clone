@@ -24,3 +24,6 @@ func _on_pipe_entered(body):
 	
 func _stop_moving():
 	should_move = false
+
+func _on_score_zone_entered(body):
+	body._increment_score()

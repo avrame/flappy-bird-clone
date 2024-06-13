@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdihjy6da3ag6"]
+[gd_scene load_steps=15 format=3 uid="uid://bdihjy6da3ag6"]
 
 [ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
 [ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
@@ -6,9 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://mplvmrwcoe3d" path="res://Background/base.png" id="3_53bcx"]
 [ext_resource type="Texture2D" uid="uid://bp61q6froip3e" path="res://message.png" id="4_jt5sv"]
 [ext_resource type="PackedScene" uid="uid://fjuwvwcxm03d" path="res://Player/player.tscn" id="6_k7p6c"]
-[ext_resource type="Texture2D" uid="uid://7j1urs5eie2n" path="res://gameover.png" id="6_qacca"]
+[ext_resource type="Texture2D" uid="uid://7j1urs5eie2n" path="res://Game Over/gameover.png" id="6_qacca"]
 [ext_resource type="Script" path="res://Player/player.gd" id="7_8tdv2"]
-[ext_resource type="Script" path="res://GameOver.gd" id="7_ellrt"]
+[ext_resource type="Script" path="res://Game Over/GameOver.gd" id="7_ellrt"]
+[ext_resource type="FontFile" uid="uid://it7fykxe8d06" path="res://numbers.png" id="10_ug61w"]
+[ext_resource type="Script" path="res://Score/Score.gd" id="11_mf4xe"]
 
 [sub_resource type="GDScript" id="GDScript_4juxc"]
 script/source = "extends Timer
@@ -27,6 +29,12 @@ func _process(delta):
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lypj"]
 size = Vector2(287.75, 129.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vbroe"]
+font = ExtResource("10_ug61w")
+font_size = 24
+shadow_size = 0
+shadow_color = Color(0.847059, 0, 0, 0)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_kbjvr")
@@ -90,10 +98,21 @@ script = ExtResource("7_8tdv2")
 position = Vector2(144.125, 449.75)
 shape = SubResource("RectangleShape2D_1lypj")
 
+[node name="Score" type="Label" parent="."]
+z_index = 10
+texture_filter = 1
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 288.0
+offset_bottom = 31.0
+text = "0"
+label_settings = SubResource("LabelSettings_vbroe")
+horizontal_alignment = 1
+script = ExtResource("11_mf4xe")
+
 [connection signal="flap" from="." to="Player" method="_on_root_flap"]
 [connection signal="timeout" from="PipeGenerator" to="." method="create_pipe"]
 [connection signal="first_flap_signal" from="Player" to="." method="_start_game"]
-[connection signal="hit_ground" from="Player" to="." method="_game_over"]
-[connection signal="hit_ground" from="Player" to="GameOver" method="_on_player_died"]
 [connection signal="hit_pipe_signal" from="Player" to="." method="_game_over"]
+[connection signal="inc_score_signal" from="Player" to="Score" method="_on_player_inc_score_signal"]
 [connection signal="body_entered" from="Ground" to="Player" method="_on_ground_body_entered"]

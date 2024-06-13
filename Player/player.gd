@@ -12,7 +12,8 @@ var hit_pipe = false
 var first_flap = true
 signal first_flap_signal
 signal hit_pipe_signal
-signal hit_ground
+signal hit_ground_signal
+signal inc_score_signal
 
 func _ready():
 	_animated_sprite.play()
@@ -51,7 +52,7 @@ func _on_ground_body_entered(body):
 	position.y = 390
 	_stop_animation()
 	dead = true
-	hit_ground.emit()
+	hit_ground_signal.emit()
 	if not hit_pipe:
 		$Crash.play()
 
@@ -59,3 +60,6 @@ func _stop_animation():
 	_animated_sprite.stop()
 	_animated_sprite.frame = 1
 	
+func _increment_score():
+	inc_score_signal.emit()
+	$ScorePoint.play()

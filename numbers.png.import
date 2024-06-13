@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://it7fykxe8d06"
+path="res://.godot/imported/numbers.png-930210ef545a92feac671c5a98f71176.fontdata"
+
+[deps]
+
+source_file="res://numbers.png"
+dest_files=["res://.godot/imported/numbers.png-930210ef545a92feac671c5a98f71176.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'0\'-\'9\'")
+columns=10
+rows=1
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=2

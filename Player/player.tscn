@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://fjuwvwcxm03d"]
+[gd_scene load_steps=10 format=3 uid="uid://fjuwvwcxm03d"]
 
 [ext_resource type="Texture2D" uid="uid://cr0poig54nikv" path="res://Player/redbird-spritesheet.png" id="1_ihech"]
 [ext_resource type="AudioStream" uid="uid://227aai0techd" path="res://Player/wing.ogg" id="2_1cduo"]
 [ext_resource type="AudioStream" uid="uid://vg8k1ppxf4by" path="res://Player/hit.ogg" id="3_aw6mi"]
+[ext_resource type="AudioStream" uid="uid://bghd5yjpviglv" path="res://Player/point.ogg" id="4_p0cap"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e30bu"]
 atlas = ExtResource("1_ihech")
@@ -51,3 +52,6 @@ stream = ExtResource("2_1cduo")
 
 [node name="Crash" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_aw6mi")
+
+[node name="ScorePoint" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p0cap")

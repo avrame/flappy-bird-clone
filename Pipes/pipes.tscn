@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c617dpqd4rwye"]
+[gd_scene load_steps=5 format=3 uid="uid://c617dpqd4rwye"]
 
 [ext_resource type="Texture2D" uid="uid://bbm7cm6wcynir" path="res://Pipes/pipe-green.png" id="1_6sjx0"]
 [ext_resource type="Script" path="res://Pipes/pipes.gd" id="1_rdojb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey6at"]
 size = Vector2(47, 318)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v37q5"]
+size = Vector2(20, 89)
 
 [node name="Pipes" type="Node2D"]
 script = ExtResource("1_rdojb")
@@ -19,7 +22,7 @@ position = Vector2(39.9995, -178)
 rotation = 3.14159
 
 [node name="HitBox" type="CollisionShape2D" parent="SpriteTop/Area2D"]
-position = Vector2(39.5, -179)
+position = Vector2(39.5, -178)
 shape = SubResource("RectangleShape2D_ey6at")
 
 [node name="SpriteBottom" type="Sprite2D" parent="."]
@@ -33,5 +36,12 @@ position = Vector2(-40, -238)
 position = Vector2(40, 237)
 shape = SubResource("RectangleShape2D_ey6at")
 
+[node name="ScoreZone" type="Area2D" parent="."]
+
+[node name="HitBox" type="CollisionShape2D" parent="ScoreZone"]
+position = Vector2(10, -0.5)
+shape = SubResource("RectangleShape2D_v37q5")
+
 [connection signal="body_entered" from="SpriteTop/Area2D" to="." method="_on_pipe_entered"]
 [connection signal="body_entered" from="SpriteBottom/Area2D" to="." method="_on_pipe_entered"]
+[connection signal="body_entered" from="ScoreZone" to="." method="_on_score_zone_entered"]
