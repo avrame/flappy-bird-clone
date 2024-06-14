@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdihjy6da3ag6"]
+[gd_scene load_steps=16 format=3 uid="uid://bdihjy6da3ag6"]
 
 [ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
 [ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://7j1urs5eie2n" path="res://Game Over/gameover.png" id="6_qacca"]
 [ext_resource type="Script" path="res://Player/player.gd" id="7_8tdv2"]
 [ext_resource type="Script" path="res://Game Over/GameOver.gd" id="7_ellrt"]
+[ext_resource type="AudioStream" uid="uid://ckow2h270m8xa" path="res://Game Over/swoosh.ogg" id="8_5din3"]
 [ext_resource type="FontFile" uid="uid://it7fykxe8d06" path="res://numbers.png" id="10_ug61w"]
 [ext_resource type="Script" path="res://Score/Score.gd" id="11_mf4xe"]
 
@@ -86,6 +87,15 @@ position = Vector2(144, 150)
 texture = ExtResource("6_qacca")
 script = ExtResource("7_ellrt")
 
+[node name="Swoosh" type="AudioStreamPlayer2D" parent="GameOver"]
+position = Vector2(-144, -150)
+stream = ExtResource("8_5din3")
+volume_db = 10.0
+
+[node name="ShowTimer" type="Timer" parent="GameOver"]
+wait_time = 0.25
+one_shot = true
+
 [node name="Player" parent="." instance=ExtResource("6_k7p6c")]
 z_index = 10
 texture_filter = 1
@@ -112,7 +122,9 @@ script = ExtResource("11_mf4xe")
 
 [connection signal="flap" from="." to="Player" method="_on_root_flap"]
 [connection signal="timeout" from="PipeGenerator" to="." method="create_pipe"]
+[connection signal="timeout" from="GameOver/ShowTimer" to="GameOver" method="_show_game_over"]
 [connection signal="first_flap_signal" from="Player" to="." method="_start_game"]
-[connection signal="hit_pipe_signal" from="Player" to="." method="_game_over"]
+[connection signal="hit_ground_signal" from="Player" to="." method="_on_player_hit_ground"]
+[connection signal="hit_pipe_signal" from="Player" to="." method="_on_player_hit_pipe"]
 [connection signal="inc_score_signal" from="Player" to="Score" method="_on_player_inc_score_signal"]
 [connection signal="body_entered" from="Ground" to="Player" method="_on_ground_body_entered"]

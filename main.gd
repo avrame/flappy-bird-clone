@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var get_ready = $GetReady
+@onready var game_over = $GameOver
 @onready var pipe_generator = $PipeGenerator
 var pipe_scene = preload("res://Pipes/pipes.tscn")
 
@@ -27,3 +28,12 @@ func _game_over():
 	get_tree().call_group("backgrounds", "_stop_moving")
 	get_tree().call_group("pipes", "_stop_moving")
 	pipe_generator.stop()
+
+
+func _on_player_hit_ground():
+	_game_over()
+	game_over._start_timer()
+
+
+func _on_player_hit_pipe():
+	_game_over()
