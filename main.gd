@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var get_ready = $GetReady
 @onready var game_over = $GameOver
+@onready var score_board = $ScoreBoard
 @onready var pipe_generator = $PipeGenerator
 var pipe_scene = preload("res://Pipes/pipes.tscn")
 
@@ -33,6 +34,7 @@ func _game_over():
 func _on_player_hit_ground():
 	_game_over()
 	game_over._start_timer()
+	score_board._start_timer()
 
 
 func _on_player_hit_pipe():
