@@ -15,3 +15,6 @@ func _process(delta):
 func _on_player_inc_score_signal():
 	score += 1
 	text = str(score)
+	
+func _get_score():
+	return score

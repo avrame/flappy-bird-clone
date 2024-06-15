@@ -18,3 +18,6 @@ func _process(delta):
 
 func _stop_moving():
 	should_move = false
+
+func _start_moving():
+	should_move = true

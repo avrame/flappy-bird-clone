@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bdihjy6da3ag6"]
+[gd_scene load_steps=22 format=3 uid="uid://bdihjy6da3ag6"]
 
 [ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
 [ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
@@ -10,11 +10,13 @@
 [ext_resource type="Script" path="res://Player/player.gd" id="7_8tdv2"]
 [ext_resource type="Script" path="res://Game Over/GameOver.gd" id="7_ellrt"]
 [ext_resource type="AudioStream" uid="uid://ckow2h270m8xa" path="res://Game Over/swoosh.ogg" id="8_5din3"]
-[ext_resource type="Texture2D" uid="uid://bsx0fklt64j33" path="res://ScoreBoard/scoreboard.png" id="9_fx2dq"]
+[ext_resource type="Texture2D" uid="uid://ddyccsffhh4t6" path="res://ScoreBoard/score-display-panel.png" id="9_0de5b"]
 [ext_resource type="Script" path="res://ScoreBoard.gd" id="10_ixb5j"]
 [ext_resource type="Texture2D" uid="uid://bv56ofisphnc0" path="res://ScoreBoard/medal.png" id="10_o6fyo"]
-[ext_resource type="FontFile" uid="uid://it7fykxe8d06" path="res://numbers.png" id="10_ug61w"]
 [ext_resource type="Script" path="res://Score/Score.gd" id="11_mf4xe"]
+[ext_resource type="FontFile" uid="uid://cg2g10xh4qusw" path="res://digits-large.png" id="12_5dvd7"]
+[ext_resource type="Texture2D" uid="uid://che7kc03uctp3" path="res://icon-button-start.png" id="13_2ug7a"]
+[ext_resource type="Texture2D" uid="uid://xuljg2sop5we" path="res://icon-button-start-pressed.png" id="14_k34ao"]
 
 [sub_resource type="GDScript" id="GDScript_4juxc"]
 script/source = "extends Timer
@@ -32,14 +34,14 @@ func _process(delta):
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_8mylr"]
-font = ExtResource("10_ug61w")
-font_size = 10
+font = ExtResource("12_5dvd7")
+font_size = 9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lypj"]
 size = Vector2(287.75, 129.5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vbroe"]
-font = ExtResource("10_ug61w")
+font = ExtResource("12_5dvd7")
 font_size = 24
 shadow_size = 0
 shadow_color = Color(0.847059, 0, 0, 0)
@@ -108,7 +110,7 @@ z_index = 15
 texture_filter = 1
 position = Vector2(144, 573)
 scale = Vector2(2, 2)
-texture = ExtResource("9_fx2dq")
+texture = ExtResource("9_0de5b")
 script = ExtResource("10_ixb5j")
 
 [node name="Medal" type="Sprite2D" parent="ScoreBoard"]
@@ -117,25 +119,43 @@ position = Vector2(-32, 3)
 texture = ExtResource("10_o6fyo")
 
 [node name="Score" type="Label" parent="ScoreBoard"]
-offset_left = 21.0
-offset_top = -12.0
-offset_right = 47.0
-offset_bottom = -3.0
+offset_left = 20.5
+offset_top = -11.5
+offset_right = 46.5
+offset_bottom = -1.5
+pivot_offset = Vector2(13, 21)
 text = "0"
 label_settings = SubResource("LabelSettings_8mylr")
 horizontal_alignment = 2
 
 [node name="BestScore" type="Label" parent="ScoreBoard"]
-offset_left = 21.0
-offset_top = 8.0
-offset_right = 47.0
-offset_bottom = 17.0
+offset_left = 20.5
+offset_top = 8.5
+offset_right = 46.5
+offset_bottom = 18.5
 text = "0"
 label_settings = SubResource("LabelSettings_8mylr")
 horizontal_alignment = 2
 
 [node name="ShowTimer" type="Timer" parent="ScoreBoard"]
 wait_time = 0.75
+one_shot = true
+
+[node name="ScoreCount" type="Timer" parent="ScoreBoard"]
+wait_time = 0.05
+
+[node name="StartButton" type="TextureButton" parent="ScoreBoard"]
+visible = false
+texture_filter = 1
+offset_left = -20.0
+offset_top = 36.0
+offset_right = 20.0
+offset_bottom = 50.0
+texture_normal = ExtResource("13_2ug7a")
+texture_pressed = ExtResource("14_k34ao")
+texture_hover = ExtResource("13_2ug7a")
+texture_disabled = ExtResource("13_2ug7a")
+texture_focused = ExtResource("13_2ug7a")
 
 [node name="Player" parent="." instance=ExtResource("6_k7p6c")]
 z_index = 10
@@ -165,6 +185,8 @@ script = ExtResource("11_mf4xe")
 [connection signal="timeout" from="PipeGenerator" to="." method="create_pipe"]
 [connection signal="timeout" from="GameOver/ShowTimer" to="GameOver" method="_show_game_over"]
 [connection signal="timeout" from="ScoreBoard/ShowTimer" to="ScoreBoard" method="_slide_up"]
+[connection signal="timeout" from="ScoreBoard/ScoreCount" to="ScoreBoard" method="_on_score_count_timeout"]
+[connection signal="pressed" from="ScoreBoard/StartButton" to="." method="_restart_game"]
 [connection signal="first_flap_signal" from="Player" to="." method="_start_game"]
 [connection signal="hit_ground_signal" from="Player" to="." method="_on_player_hit_ground"]
 [connection signal="hit_pipe_signal" from="Player" to="." method="_on_player_hit_pipe"]

@@ -31,6 +31,14 @@ func _physics_process(delta):
 			
 		move_and_slide()
 
+func _reset():
+	position = Vector2(89, 247)
+	rotation = 0
+	gravity_on = false
+	dead = false
+	hit_pipe = false
+	first_flap = true
+
 func _flap():
 	if first_flap:
 		first_flap_signal.emit()
