@@ -23,7 +23,12 @@ func create_pipe():
 	add_child(pipe)
 
 func _start_game():
-	get_ready.hide()
+	#get_ready.hide()
+	var fade_in_get_ready = get_tree().create_tween()
+	fade_in_get_ready.tween_property(get_ready, "self_modulate:a", 0, 1)
+	fade_in_get_ready.tween_callback(_start_pipes)
+	
+func _start_pipes():
 	create_pipe()
 	pipe_generator.start()
 	
@@ -31,7 +36,7 @@ func _restart_game():
 	game_over.hide()
 	score._reset()
 	score_board._reset()
-	get_ready.show()
+	get_ready.self_modulate.a = 1
 	player._reset()
 	get_tree().call_group("pipes", "_destroy")
 	get_tree().call_group("backgrounds", "_start_moving")

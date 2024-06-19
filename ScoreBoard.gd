@@ -49,6 +49,7 @@ func _on_score_count_timeout():
 		start_button.disabled = false
 		if final_score > best_score:
 			medal.visible = true
+			medal._place_sparkle_randomly()
 			best_score = final_score
 		
 func _reset():
