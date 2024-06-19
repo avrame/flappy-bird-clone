@@ -1,7 +1,7 @@
 extends Sprite2D
 
 @export var speed = -10
-const x_offset = -3
+var x_offset = -3
 var should_move = true
 
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +15,10 @@ func _process(delta):
 		var width = texture.get_width()
 		if position.x <= -width:
 			position.x = width + x_offset
+			x_offset -= 3
 
 func _stop_moving():
 	should_move = false
+
+func _start_moving():
+	should_move = true

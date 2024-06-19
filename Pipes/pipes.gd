@@ -27,3 +27,6 @@ func _stop_moving():
 
 func _on_score_zone_entered(body):
 	body._increment_score()
+	
+func _destroy():
+	queue_free()

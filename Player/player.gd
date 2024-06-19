@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const FLAP_VELOCITY = -300.0
+const FLAP_VELOCITY = -250.0
 
 @onready var _animated_sprite = $AnimatedSprite2D
 
@@ -13,6 +13,7 @@ var first_flap = true
 signal first_flap_signal
 signal hit_pipe_signal
 signal hit_ground_signal
+signal flash_signal
 signal inc_score_signal
 
 func _ready():
@@ -31,6 +32,14 @@ func _physics_process(delta):
 			
 		move_and_slide()
 
+func _reset():
+	position = Vector2(89, 247)
+	rotation = 0
+	gravity_on = false
+	dead = false
+	hit_pipe = false
+	first_flap = true
+
 func _flap():
 	if first_flap:
 		first_flap_signal.emit()
@@ -45,6 +54,7 @@ func _hit_pipe():
 		hit_pipe = true
 		_stop_animation()
 		hit_pipe_signal.emit()
+		flash_signal.emit()
 		$Crash.play()
 
 func _on_ground_body_entered(body):
@@ -55,6 +65,8 @@ func _on_ground_body_entered(body):
 	hit_ground_signal.emit()
 	if not hit_pipe:
 		$Crash.play()
+		flash_signal.emit()
+		
 
 func _stop_animation():
 	_animated_sprite.stop()

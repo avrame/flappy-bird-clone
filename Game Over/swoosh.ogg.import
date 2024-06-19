@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ckow2h270m8xa"
+path="res://.godot/imported/swoosh.ogg-94f9612d8839d39d9ede751829e8c407.oggvorbisstr"
+
+[deps]
+
+source_file="res://Game Over/swoosh.ogg"
+dest_files=["res://.godot/imported/swoosh.ogg-94f9612d8839d39d9ede751829e8c407.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

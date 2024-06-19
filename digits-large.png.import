@@ -2,13 +2,13 @@
 
 importer="font_data_image"
 type="FontFile"
-uid="uid://it7fykxe8d06"
-path="res://.godot/imported/numbers.png-930210ef545a92feac671c5a98f71176.fontdata"
+uid="uid://cg2g10xh4qusw"
+path="res://.godot/imported/digits-large.png-07ea40aeb460f524aaf8b5cc4bc50236.fontdata"
 
 [deps]
 
-source_file="res://numbers.png"
-dest_files=["res://.godot/imported/numbers.png-930210ef545a92feac671c5a98f71176.fontdata"]
+source_file="res://digits-large.png"
+dest_files=["res://.godot/imported/digits-large.png-07ea40aeb460f524aaf8b5cc4bc50236.fontdata"]
 
 [params]
 
