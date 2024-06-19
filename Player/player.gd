@@ -13,6 +13,7 @@ var first_flap = true
 signal first_flap_signal
 signal hit_pipe_signal
 signal hit_ground_signal
+signal flash_signal
 signal inc_score_signal
 
 func _ready():
@@ -53,6 +54,7 @@ func _hit_pipe():
 		hit_pipe = true
 		_stop_animation()
 		hit_pipe_signal.emit()
+		flash_signal.emit()
 		$Crash.play()
 
 func _on_ground_body_entered(body):
@@ -63,6 +65,8 @@ func _on_ground_body_entered(body):
 	hit_ground_signal.emit()
 	if not hit_pipe:
 		$Crash.play()
+		flash_signal.emit()
+		
 
 func _stop_animation():
 	_animated_sprite.stop()

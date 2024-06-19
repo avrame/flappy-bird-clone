@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bdihjy6da3ag6"]
+[gd_scene load_steps=23 format=3 uid="uid://bdihjy6da3ag6"]
 
 [ext_resource type="Texture2D" uid="uid://mn4iw3qp0w7r" path="res://Background/background-day.png" id="1_8dwdx"]
 [ext_resource type="Script" path="res://main.gd" id="1_kbjvr"]
@@ -17,6 +17,7 @@
 [ext_resource type="FontFile" uid="uid://cg2g10xh4qusw" path="res://digits-large.png" id="12_5dvd7"]
 [ext_resource type="Texture2D" uid="uid://che7kc03uctp3" path="res://icon-button-start.png" id="13_2ug7a"]
 [ext_resource type="Texture2D" uid="uid://xuljg2sop5we" path="res://icon-button-start-pressed.png" id="14_k34ao"]
+[ext_resource type="Script" path="res://WhiteFlash.gd" id="18_n2skf"]
 
 [sub_resource type="GDScript" id="GDScript_4juxc"]
 script/source = "extends Timer
@@ -181,6 +182,15 @@ label_settings = SubResource("LabelSettings_vbroe")
 horizontal_alignment = 1
 script = ExtResource("11_mf4xe")
 
+[node name="WhiteFlash" type="Node2D" parent="."]
+visible = false
+z_index = 100
+script = ExtResource("18_n2skf")
+
+[node name="Timer" type="Timer" parent="WhiteFlash"]
+wait_time = 0.05
+one_shot = true
+
 [connection signal="flap" from="." to="Player" method="_on_root_flap"]
 [connection signal="timeout" from="PipeGenerator" to="." method="create_pipe"]
 [connection signal="timeout" from="GameOver/ShowTimer" to="GameOver" method="_show_game_over"]
@@ -188,7 +198,9 @@ script = ExtResource("11_mf4xe")
 [connection signal="timeout" from="ScoreBoard/ScoreCount" to="ScoreBoard" method="_on_score_count_timeout"]
 [connection signal="pressed" from="ScoreBoard/StartButton" to="." method="_restart_game"]
 [connection signal="first_flap_signal" from="Player" to="." method="_start_game"]
+[connection signal="flash_signal" from="Player" to="WhiteFlash" method="_flash"]
 [connection signal="hit_ground_signal" from="Player" to="." method="_on_player_hit_ground"]
 [connection signal="hit_pipe_signal" from="Player" to="." method="_on_player_hit_pipe"]
 [connection signal="inc_score_signal" from="Player" to="Score" method="_on_player_inc_score_signal"]
 [connection signal="body_entered" from="Ground" to="Player" method="_on_ground_body_entered"]
+[connection signal="timeout" from="WhiteFlash/Timer" to="WhiteFlash" method="_on_timer_timeout"]
