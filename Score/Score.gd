@@ -18,3 +18,7 @@ func _on_player_inc_score_signal():
 	
 func _get_score():
 	return score
+	
+func _reset():
+	score = 0
+	text = "0"

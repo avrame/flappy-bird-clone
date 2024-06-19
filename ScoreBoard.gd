@@ -2,10 +2,13 @@ extends Sprite2D
 
 @onready var show_timer = $ShowTimer
 @onready var score_label = $Score
+@onready var best_score_label = $BestScore
 @onready var score_count = $ScoreCount
 @onready var start_button = $StartButton
+@onready var medal = $Medal
 
 var final_score = 0
+var best_score = 0
 var score_display = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,16 +35,26 @@ func _display_score():
 		score_count.start()
 	else:
 		start_button.visible = true
+		start_button.disabled = false
 
 func _on_score_count_timeout():
 	score_display += 1
 	score_label.text = str(score_display)
+	if score_display > best_score:
+		best_score_label.text = str(score_display)
+		
 	if score_display == final_score:
 		score_count.stop()
 		start_button.visible = true
+		start_button.disabled = false
+		if final_score > best_score:
+			medal.visible = true
+			best_score = final_score
 		
 func _reset():
 	position = Vector2(144, 573)
+	start_button.disabled = true
 	final_score = 0
 	score_display = 0
 	score_label.text = "0"
+	medal.visible = false

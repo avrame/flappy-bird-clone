@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const FLAP_VELOCITY = -300.0
+const FLAP_VELOCITY = -250.0
 
 @onready var _animated_sprite = $AnimatedSprite2D
 

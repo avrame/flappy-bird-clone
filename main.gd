@@ -29,6 +29,7 @@ func _start_game():
 	
 func _restart_game():
 	game_over.hide()
+	score._reset()
 	score_board._reset()
 	get_ready.show()
 	player._reset()
